@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Twitter Share Tool</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        #article {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-menu {
+            position: absolute;
+            display: none;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .custom-menu button {
+            background: #1da1f2;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .custom-menu button:hover {
+            background: #0d91e5;
+        }
+
+        .highlighted {
+            background-color: #ffffcc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="article">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida,
+            nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+            sollicitudin vel erat vel, interdum mattis neque.</p>
+    </div>
+
+    <div id="custom-menu" class="custom-menu">
+        <button id="twitter-share-button">Share on Twitter</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const article = document.getElementById('article');
+            const customMenu = document.getElementById('custom-menu');
+            const twitterShareButton = document.getElementById('twitter-share-button');
+
+            article.addEventListener('mouseup', function (e) {
+                const selection = window.getSelection().toString().trim();
+                if (selection !== '') {
+                    showCustomMenu(e.clientX, e.clientY);
+                } else {
+                    hideCustomMenu();
+                }
+            });
+
+            twitterShareButton.addEventListener('click', function () {
+                const selectedText = window.getSelection().toString().trim();
+                const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(selectedText)}`;
+                window.open(tweetUrl, '_blank');
+                hideCustomMenu();
+            });
+
+            function showCustomMenu(x, y) {
+                customMenu.style.display = 'block';
+                customMenu.style.left = x + 'px';
+                customMenu.style.top = y + 'px';
+            }
+
+            function hideCustomMenu() {
+                customMenu.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
